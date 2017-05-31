@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+</head>
+<style type="text/css">
+	#small{
+		width: 320px;
+		height: 160px;
+		margin: 0 auto;
+	}
+	#small ul{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	#small ul li{
+		margin: 0 10px 10px 0;
+		width: 100px;
+		height: 75px;
+		float: left;
+	}
+	#small ul li:nth-child(3n){
+		margin: 0 0 10px 0;
+	}
+	#small ul li img{
+		max-width: 100px;
+		max-height: 75px;
+	}
+	#big{
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		position: fixed;
+		background: rgba(0,0,0,.5);
+		top:0;
+		left: 0;
+	}
+	#close{
+		width: 20px;
+		height: 20px;
+		line-height: 20px;
+		border: 1px solid #ccc;
+		background: rgba(255,255,255,.5);
+		position: absolute;
+		top: 20px;
+		right: 40px;
+		border-radius:10px ;
+	}
+	#bu{
+		width: 40px;
+		height: 40px;
+		line-height: 38px;
+		border: 1px solid #ccc;
+		background: rgba(255,255,255,.5);
+		position: absolute;
+		top: 110px;
+		left: 290px;
+		border-radius:50%;
+		text-align: center;
+	}
+	#bu1{
+		width: 40px;
+		height: 40px;
+		line-height: 38px;
+		border: 1px solid #ccc;
+		background: rgba(255,255,255,.5);
+		position: absolute;
+		top: 110px;
+		right:290px;
+		border-radius:50%;
+		text-align: center;
+	}
+</style>
+<body>
+	<div id="small">
+		<ul>
+			<li><img src="imgs/001.png"/></li>
+			<li><img src="imgs/002.png"/></li>
+			<li><img src="imgs/003.png"/></li>
+			<li><img src="imgs/004.png"/></li>
+			<li><img src="imgs/002.png"/></li>
+			<li><img src="imgs/001.png"/></li>
+		</ul>
+	</div>
+	<div id="big" style="display: none;">
+		<div id="close">X</div>
+		<div id="bu" onclick="pre()"><</div>
+		<img src="../轮播图/imgs/001.png" id="pic"/>
+		<div id="bu1" onclick="next()">></div>
+	</div>
+</body>
+<script type="text/javascript">
+	var imgs=document.querySelectorAll("#small>ul>li>img");
+	var big=document.querySelector("#big");
+	var bigImg=document.querySelector("#big>img");
+	var closeBtn=document.querySelector("#close");
+	
+	var lb = document.querySelector("#bu");
+	var rb = document.querySelector("#bu1");
+	
+	closeBtn.addEventListener("click",closeBig);
+	lb.addEventListener("click",lb);
+	rb.addEventListener("click",rb);
+	
+	function closeBig(){
+		big.style.display="none";
+	}
+	
+	for(var i=0; i<imgs.length; i++){
+		imgs[i].addEventListener("click",showBigImg);
+	}
+	
+	function showBigImg(e){
+		//将大图改成需要的图
+		bigImg.src=e.target.src;
+		//显示大图
+		big.style.display="block";
+	}
+	
+	
+	//上一页和下一页
+	 var picArr=new Array("imgs/001.png","imgs/002.png","imgs/003.png","imgs/004.png","imgs/002.png","imgs/001.png");
+    var index=0;
+    function next(){
+        index++;
+        if(index==picArr.length){
+            index=0;
+        }
+        document.getElementById("pic").src=picArr[index];
+    }
+    function pre(){
+        index--;
+        if(index<0){
+            index=picArr.length-1;
+        }
+        document.getElementById("pic").src=picArr[index];
+    }
+</script>
+</html>
